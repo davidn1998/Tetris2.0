@@ -230,7 +230,7 @@ public abstract class Block {
     public void MoveRight(){
 
 
-        if(getGridXPos(a) <= Main.width - Main.SQUARESIZE * 2 && getGridXPos(b) <= Main.width - Main.SQUARESIZE * 2 && getGridXPos(c) <= Main.width - Main.SQUARESIZE * 2 && getGridXPos(d) <= Main.width - Main.SQUARESIZE * 2){
+        if(getGridXPos(a) <= Main.width - Main.SQUARESIZE * 2 && getGridXPos(b) <= Main.width - Main.SQUARESIZE * 2 && getGridXPos(c) <= Main.width - Main.SQUARESIZE * 2 && getGridXPos(d) <= Main.width - Main.SQUARESIZE * 2 && !isRighttBlocked()){
             tetrominoGrid.setLayoutX(tetrominoGrid.getLayoutX() + Main.SQUARESIZE);
         }
 
@@ -242,7 +242,7 @@ public abstract class Block {
     public void MoveLeft(){
 
 
-        if(getGridXPos(a) - Main.SQUARESIZE >= 0 && getGridXPos(b) - Main.SQUARESIZE >= 0 && getGridXPos(c) - Main.SQUARESIZE >= 0 && getGridXPos(d) - Main.SQUARESIZE >= 0){
+        if(getGridXPos(a) - Main.SQUARESIZE >= 0 && getGridXPos(b) - Main.SQUARESIZE >= 0 && getGridXPos(c) - Main.SQUARESIZE >= 0 && getGridXPos(d) - Main.SQUARESIZE >= 0 && !isLefttBlocked()){
             tetrominoGrid.setLayoutX(tetrominoGrid.getLayoutX() - Main.SQUARESIZE);
         }
 
