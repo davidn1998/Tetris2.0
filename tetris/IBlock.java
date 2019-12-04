@@ -2,7 +2,6 @@ package tetris;
 
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 
 public class IBlock extends Block {
 

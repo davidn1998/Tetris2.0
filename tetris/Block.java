@@ -89,24 +89,6 @@ public abstract class Block {
     public AnchorPane getTetromino() {
         return tetrominoGrid;
     }
-    
-    /** Getters for Rectangles
-     */
-    public Rectangle a() {
-        return a;
-    }
-
-    public Rectangle b() {
-        return b;
-    }
-
-    public Rectangle c() {
-        return c;
-    }
-
-    public Rectangle d() {
-        return d;
-    }
 
     /** Sets the color of the blocks
      *
@@ -139,7 +121,6 @@ public abstract class Block {
     /**
      * rotation of Block to be implemented in subClasses
      */
-    //public abstract void rotateBlock();
 
     public void rotateTetromino(){
 
@@ -199,10 +180,6 @@ public abstract class Block {
             gridArray[rotatedCoordinates[i].x][rotatedCoordinates[i].y] = coordinateValue.get(i);
 
         }
-
-//        for(int i = 0; i < rotatedCoordinates.length; i++){
-//            gridArray[rotatedCoordinates[i].x][rotatedCoordinates[i].y] = 1;
-//        }
 
         gridArray[origin.x][origin.y] = 2;
 

@@ -19,12 +19,15 @@ The following link will take you to documentation on how to do this:
 * [Java](https://docs.oracle.com/javase/8/docs/technotes/guides/language/index.html) - Language
 * [JavaFX](https://openjfx.io/) - Graphics Library
 
+## References used for learning key concepts
+ * [Rotation Matrix Algorithm](https://docs.oracle.com/javase/8/docs/technotes/guides/language/index.html) - A good method for rotating blocks using matrix manipulation
+
 ## Authors
 
 * **David Nwachukwu** - davidn1998
-* **Gabriel Curtis** - 
-* **Cooper Borneman** - 
-* **Bikalp Satyal** -
+* **Gabriel Curtis** - gccurtis
+* **Cooper Borneman** - Coopar998
+* **Bikalp Satyal** - bsatyal3
 
 ## Rights
 
