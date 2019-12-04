@@ -20,7 +20,7 @@ The following link will take you to documentation on how to do this:
 * [JavaFX](https://openjfx.io/) - Graphics Library
 
 ## References used for learning key concepts
- * [Rotation Matrix Algorithm](https://docs.oracle.com/javase/8/docs/technotes/guides/language/index.html) - A good method for rotating blocks using matrix manipulation
+ * [Rotation Matrix Algorithm](https://stackoverflow.com/questions/233850/tetris-piece-rotation-algorithm) - A good method for rotating blocks using matrix manipulation
 
 ## Authors
 
