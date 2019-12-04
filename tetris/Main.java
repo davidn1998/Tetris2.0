@@ -1,0 +1,46 @@
+package tetris;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    //Variables
+    public static Scene scene;
+    int sceneWidth = 1280;
+    int sceneHeight = 720;
+
+    public static boolean playingGame = true;
+    public static final int SQUARESIZE = 25;
+    public static  int width = SQUARESIZE * 12;
+    public static int height = SQUARESIZE * 24;
+    public static int[][] GRID = new int [width/SQUARESIZE][height/SQUARESIZE];
+    public static int xMin = 336;
+    public static int xMax = 336 + width;
+    public static int yMin = 116;
+    public static int yMax = 116 + height;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        AnchorPane root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        primaryStage.setTitle("T E T R I S");
+
+        scene = new Scene(root, sceneWidth, sceneHeight);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+
+    }
+
+    @Override
+    public void stop(){
+        System.exit(0);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
