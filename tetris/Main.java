@@ -9,9 +9,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     //Variables
-    public static Scene scene;
-    int sceneWidth = 1280;
-    int sceneHeight = 720;
+    public static Scene menuScene;
+    public static Scene gameScene;
+    public static Scene gameOverScene;
+    public static Stage currStage;
+    public static int sceneWidth = 1280;
+    public static int sceneHeight = 720;
 
     public static boolean playingGame = true;
     public static final int SQUARESIZE = 25;
@@ -25,11 +28,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        AnchorPane root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        currStage = primaryStage;
+        AnchorPane menu = FXMLLoader.load(getClass().getResource("menu.fxml"));
         primaryStage.setTitle("T E T R I S");
 
-        scene = new Scene(root, sceneWidth, sceneHeight);
-        primaryStage.setScene(scene);
+        menuScene = new Scene(menu, sceneWidth, sceneHeight);
+        primaryStage.setScene(menuScene);
         primaryStage.setResizable(false);
         primaryStage.show();
 

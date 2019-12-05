@@ -6,15 +6,17 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 public class Controller {
 
@@ -28,10 +30,10 @@ public class Controller {
     public static int top = 0;
     private static Block nextObj = makeBlock();
     private static int lineNo = 0;
-    private static int speed = 3;
-    private static int time = 0;
+    private static boolean linesClearing;
 
     private int canMove = 0;
+    private int canRotate = 0;
 
     @FXML
     private Pane tetrisPane;
@@ -56,6 +58,15 @@ public class Controller {
 
         playGame();
 
+        Main.playingGame = true;
+
+    }
+
+    public void ChangeScene() throws IOException {
+        AnchorPane gameOver = FXMLLoader.load(getClass().getResource("gameOver.fxml"));
+        Main.gameOverScene = new Scene(gameOver, Main.sceneWidth, Main.sceneHeight);
+        Main.currStage.setScene(Main.gameOverScene);
+        Main.currStage.show();
     }
 
     public void playGame() {
@@ -67,6 +78,8 @@ public class Controller {
         tetrisPane.getChildren().add(a.getTetromino());
         currObject = a;
         nextObj = makeBlock();
+
+        Main.playingGame = true;
 
         //Timeline for main gameplay loop
 
@@ -82,13 +95,17 @@ public class Controller {
                 /** GAME OVER
                  *
                  */
-                Text over = new Text("GAME OVER");
-                over.setFill(Color.RED);
-                over.setStyle("-fx-font: 70 arial;");
-                over.setY(250);
-                over.setX(10);
-                tetrisPane.getChildren().add(over);
                 Main.playingGame = false;
+
+                System.out.print("game over");
+
+
+                try {
+                    ChangeScene();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             /** END GAME
@@ -105,7 +122,7 @@ public class Controller {
                 MoveDown(currObject);
                 moveOnKeyPress(currObject);
                 canMove++;
-                time++;
+                canRotate++;
 
                 linesText.setText("LINES: " + lineNo);
                 scoreText.setText("SCORE: " + score);
@@ -115,35 +132,31 @@ public class Controller {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
-        if(time % 2 == 0){
-            speed+=1;
-            timeline.setRate(speed);
-        }
-
-        timeline.setRate(speed);
+        timeline.setRate(3);
 
     }
 
     private void moveOnKeyPress(Block block) {
-        Main.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        Main.gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
                     case RIGHT:
-                        if (Main.playingGame)
+                        if (Main.playingGame && !linesClearing)
                         block.MoveRight();
                         break;
                     case LEFT:
-                        if (Main.playingGame)
+                        if (Main.playingGame && !linesClearing)
                         block.MoveLeft();
                         break;
                     case DOWN:
-                        if (Main.playingGame && canMove > 1)
+                        if (Main.playingGame && canMove > 1 && !linesClearing)
                             MoveDown(block);
                         break;
                     case UP:
-                        if (block.canRotate() && Main.playingGame) {
+                        if (block.canRotate() && Main.playingGame && canRotate > 0 && !linesClearing) {
                             block.rotateTetromino();
+                            canRotate = 0;
                         }
                         break;
                 }
@@ -227,6 +240,8 @@ public class Controller {
 
             if (lineFilled) {
 
+                linesClearing = true;
+
                 for (Node node : tetrisPane.getChildren()) {
                     if (node instanceof AnchorPane) {
                         for (Node rect : ((AnchorPane) node).getChildren()) {
@@ -283,6 +298,8 @@ public class Controller {
                 }
 
                 System.out.println("------------------------------CLEARED-----------------------------");
+
+                linesClearing = false;
 
             }
 
