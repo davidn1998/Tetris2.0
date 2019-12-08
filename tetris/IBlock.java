@@ -116,4 +116,27 @@ public class IBlock extends Block {
 
         this.fillGrid();
     }
+
+    @Override
+    public boolean canRotate(){
+
+        double gridXPos = tetrominoGrid.localToParent(tetrominoGrid.getLayoutX(),tetrominoGrid.getLayoutY()).getX();
+        double gridYPos = tetrominoGrid.localToParent(tetrominoGrid.getLayoutX(),tetrominoGrid.getLayoutY()).getY();
+
+        if(gridXPos - Main.SQUARESIZE > 0 && gridXPos < Main.width + Main.SQUARESIZE * 4 && gridYPos + Main.SQUARESIZE*4 < Main.height &&!isDownBlocked()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private boolean isDownBlocked() {
+
+        return (  (Main.GRID[(int) getGridXPos(a) / Main.SQUARESIZE][((int) getGridYPos(a) / Main.SQUARESIZE) + 2] == 1)
+                ||(Main.GRID[(int) getGridXPos(b) / Main.SQUARESIZE][((int) getGridYPos(b) / Main.SQUARESIZE) + 2] == 1)
+                ||(Main.GRID[(int) getGridXPos(c) / Main.SQUARESIZE][((int) getGridYPos(c) / Main.SQUARESIZE) + 2] == 1)
+                ||(Main.GRID[(int) getGridXPos(d)  / Main.SQUARESIZE][((int) getGridYPos(d) / Main.SQUARESIZE) + 2] == 1)
+        );
+
+    }
 }

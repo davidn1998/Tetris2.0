@@ -189,10 +189,9 @@ public abstract class Block {
     public boolean canRotate(){
 
         double gridXPos = tetrominoGrid.localToParent(tetrominoGrid.getLayoutX(),tetrominoGrid.getLayoutY()).getX();
-        double gridYPos = tetrominoGrid.localToParent(tetrominoGrid.getLayoutX(),tetrominoGrid.getLayoutY()).getY();
 
-        if(gridXPos - Main.SQUARESIZE >= 0 && gridXPos <= Main.width + Main.SQUARESIZE * 4
-        ){
+        if(gridXPos - Main.SQUARESIZE >= 0 && gridXPos <= Main.width + Main.SQUARESIZE * 4 && !isDownBlocked())
+        {
             return true;
         }else {
             return false;
@@ -267,9 +266,19 @@ public abstract class Block {
         }
     }
 
+    /*
+    * Takes in a Rectangle and returns the X position relative to the playspace.
+    * @param Rectangle piece
+    */
+
     public double getGridXPos(Rectangle piece){
         return piece.localToScene(piece.getX(),piece.getY()).getX() - Main.xMin;
     }
+
+    /*
+     * Takes in a Rectangle and returns the Y position relative to the playspace.
+     * @param Rectangle piece
+     */
 
     public double getGridYPos(Rectangle piece){
         return piece.localToScene(piece.getX(),piece.getY()).getY() - Main.yMin;

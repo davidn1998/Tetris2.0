@@ -17,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
 public class Controller {
 
@@ -200,19 +201,6 @@ public class Controller {
             GRID[(int) block.getGridXPos(block.c) / SQUARESIZE][(int) block.getGridYPos(block.c) / SQUARESIZE] = 1;
             GRID[(int) block.getGridXPos(block.d) / SQUARESIZE][(int) block.getGridYPos(block.d) / SQUARESIZE] = 1;
 
-
-            System.out.println("------------------------------ROOF----------------------------");
-
-            for (int k = 0; k < GRID[0].length; k++) {
-                for (int j = 0; j < GRID.length; j++) {
-                    System.out.print(GRID[j][k]);
-                }
-                System.out.println("\n");
-            }
-
-            System.out.println("------------------------------FLOOR----------------------------");
-
-
             DeleteRow();
 
             score++;
@@ -248,24 +236,50 @@ public class Controller {
                             if (rect instanceof Rectangle) {
 
                                 if ((int) getGridYPos((Rectangle) rect) == (i * Main.SQUARESIZE)) {
+
+                                    final CountDownLatch latchToWaitForJavaFx = new CountDownLatch(1);
+
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
                                             ((AnchorPane) node).getChildren().remove(rect);
+                                            System.out.println("deleted rectangle");
                                         }
                                     });
+
                                 }
                             }
                         }
                     }
                 }
 
+                System.out.println("------------------------------BEFORE DELETION----------------------------");
+
+                for (int k = 0; k < GRID[0].length; k++) {
+                    for (int j = 0; j < GRID.length; j++) {
+                        System.out.print(GRID[j][k]);
+                    }
+                    System.out.println("\n");
+                }
+
+                System.out.println("------------------------------BEFORE DELETION----------------------------");
+
                 for (int j = 0; j < GRID.length; j++) {
                     GRID[j][i] = 0;
                 }
 
+                System.out.println("------------------------------AFTER DELETION----------------------------");
 
-                for (int lineNo = i - 1; lineNo >= 0; lineNo--) {
+                for (int k = 0; k < GRID[0].length; k++) {
+                    for (int j = 0; j < GRID.length; j++) {
+                        System.out.print(GRID[j][k]);
+                    }
+                    System.out.println("\n");
+                }
+
+                System.out.println("------------------------------AFTER DELETION----------------------------");
+
+                for (int lineNo = i; lineNo >= 0; lineNo--) {
 
                     for (Node node : tetrisPane.getChildren()) {
                         if (node instanceof AnchorPane) {
@@ -274,10 +288,11 @@ public class Controller {
                                     if ((int) getGridYPos((Rectangle) rect) == (lineNo * Main.SQUARESIZE)) {
 
                                         if (!hasHitGround((Rectangle) rect)) {
-
                                             rect.setLayoutY(rect.getLayoutY() + Main.SQUARESIZE);
                                             Main.GRID[(int) getGridXPos((Rectangle) rect) / Main.SQUARESIZE][((int) getGridYPos((Rectangle) rect) / Main.SQUARESIZE)] = 1;
                                             Main.GRID[(int) getGridXPos((Rectangle) rect) / Main.SQUARESIZE][((int) getGridYPos((Rectangle) rect) / Main.SQUARESIZE) - 1] = 0;
+
+                                            System.out.println("moved down rectangle on line: " + lineNo);
 
                                         }
                                     }
@@ -288,17 +303,19 @@ public class Controller {
 
                 }
 
-                score += 50;
-                lineNo++;
+                System.out.println("------------------------------AFTER DROPPING----------------------------");
+
                 for (int k = 0; k < GRID[0].length; k++) {
-                    System.out.println("\n");
                     for (int j = 0; j < GRID.length; j++) {
                         System.out.print(GRID[j][k]);
                     }
+                    System.out.println("\n");
                 }
 
-                System.out.println("------------------------------CLEARED-----------------------------");
+                System.out.println("------------------------------AFTER DROPPING----------------------------");
 
+                score += 50;
+                lineNo++;
                 linesClearing = false;
 
             }
