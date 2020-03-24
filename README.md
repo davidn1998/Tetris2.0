@@ -25,9 +25,6 @@ The following link will take you to documentation on how to do this:
 ## Authors
 
 * **David Nwachukwu** - davidn1998
-* **Gabriel Curtis** - gccurtis
-* **Cooper Borneman** - Coopar998
-* **Bikalp Satyal** - bsatyal3
 
 ## Rights
 
